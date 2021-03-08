@@ -1,0 +1,9 @@
+[submodule "thirdparty/protobuf"]
+	path = thirdparty/protobuf
+	url = https://github.com/protocolbuffers/protobuf.git
+[submodule "thirdparty/gflags"]
+	path = thirdparty/gflags
+	url = https://github.com/gflags/gflags.git
+[submodule "thirdparty/glog"]
+	path = thirdparty/glog
+	url = https://github.com/google/glog.git
