@@ -9,7 +9,7 @@ class DB;
 
 class KVDB {
  public:
-  KVDB(const std::string& string& db_path, const size_t id);
+  KVDB(const std::string& db_path, const size_t id);
   virtual ~KVDB();
 
  public:
@@ -24,7 +24,7 @@ class KVDB {
   inline bool Stop();
   inline void SetStop(bool stop);
   inline void SeekToLogLast();
-  inline db::DB::Iterator* NewIterator();
+  inline db::DB::Iterator* NewLogIterator();
   inline db::DB::Iterator* NewKvIterator();
 
  private:

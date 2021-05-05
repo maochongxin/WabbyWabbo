@@ -7,3 +7,6 @@
 [submodule "thirdparty/glog"]
 	path = thirdparty/glog
 	url = https://github.com/google/glog.git
+[submodule "thirdparty/grpc"]
+	path = thirdparty/grpc
+	url = https://github.com/grpc/grpc.git

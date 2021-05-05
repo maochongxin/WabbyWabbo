@@ -113,6 +113,6 @@ void KVDB::SeekToLogLast() {
   }
 }
 
-db::DB::Iterator KVDB::NewIterator() { return log_db_->NewIterator(); }
+db::DB::Iterator KVDB::NewLogIterator() { return log_db_->NewIterator(); }
 
 db::DB::Iterator KVDB::NewKvIterator() { return data_db_->NewIterator(); }
