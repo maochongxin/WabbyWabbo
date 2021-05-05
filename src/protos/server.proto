@@ -3,51 +3,68 @@ syntax = "proto3";
 package grpc.wabbywabbo.dbserver;
 option cc_generic_services = true;
 
+message GetMasterRequest {
+	int32 status = 1;
+}
 
+message GetMasterResponse {
+	int32 status = 1;
+	repeated int32 db_id = 2;
+}
 
 enum Status {
 	OK = 0;
 	ERROR_NOT_FOUND = 1;
+	ERROR_SHARD_INVALID = 2;
 	ERROR_UNKNOWN = 9999;
 }
 
 enum RecordType {
 	SET = 0;
-	DEL = 0;
+	DEL = 1;
 }
 
-message Record {
+message RequsestRecord {
+	int32 shard = 1;
+	bytes key = 2;
+	optional bytes value = 3;
+	optional int64 ttl = 4;
+	optional RecordType record_type = 5;
+}
+
+message ResponseRecord {
 	bytes key = 1;
 	bytes value = 2;
-	int64_t ttl = 3;
-	bool is_delete = 4;
-	RecordType record_type = 5;
+	int64 ttl = 3;
+	optional bool is_delete = 4;
 }
 
-message GetRequest {
-	bytes key = 1;
+
+
+message GetShardDataRequest {
+	RequsestRecord record = 1;
 }
 
-message GetResponse {
+message GetShardDataResponse {
 	Status status = 1;
-	Record record = 2;
+	ResponseRecord record = 2;
 }
-
 
 // modifications for string type, eg: set、setex、setpx
-message SetStringRequest {
-	Record record = 1;
+message SetShardDataRequest {
+	RequsestRecord record = 1;
 }
 
-message SetStringResponse {
+message SetShardDataResponse {
 	Status status = 1;
 	bool old_str_exists = 2;
-	Record record = 3;	// return the old value
+	ResponseRecord record = 3;	// return the old value
 }
 
 
 service DbService {
-	rpc Get(GetRequest) returns (GetResponse);
-	rpc SetString(SetStringRequest) returns (SetStringResponse);
+	rpc GetMasterShard(GetMasterRequest) returns (GetMasterResponse);
+	rpc Get(GetShardDataRequest) returns (GetShardDataResponse);
+	rpc SetString(SetShardDataRequest) returns (SetShardDataResponse);
 }
 

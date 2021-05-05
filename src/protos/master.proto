@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option cc_generic_services = true;
+
+message UpdateRoleRequest {
+    string hosts = 1;
+    repeated int32 shard_list = 2;
+    repeated int32 is_master = 3;
+}
+
+message UpdateRoleResponse {
+    int32 status = 1;
+}
+
+message GetVersionRequest {
+    string hosts = 1;
+}
+
+message GetVersionResponse {
+    int32 status = 1;
+    repeated int32 shard_list = 2;
+    repeated int32 version = 3;
+}
+
+message GetTopoRequest {
+    string hosts = 1;
+    repeated int32 shard_list = 2;
+}
+
+message GetTopoResponse {
+    int32 status = 1;
+    repeated int32 shard_list = 2;
+    repeated string topo = 3;
+}
+
+service MasterService {
+    rpc UpdateRole (UpdateRoleRequest) returns (UpdateRoleResponse);
+    rpc GetVersion (GetVersionRequest) returns (GetVersionResponse);
+    rpc GetTopo (GetTopoRequest) returns (GetTopoResponse);
+}
+
